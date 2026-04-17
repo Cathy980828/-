@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IR 投稿决策台</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Academic Submission Decision Desk</p>
+          <h1>IR 投稿决策台</h1>
+          <p class="hero-copy">
+            给国际关系 / 国际政治方向博士生用的本地工具。根据稿件主题、写作取向、篇幅和你的作者处境，给出中文核心与 SSCI 的首投、备投、冲刺建议。
+          </p>
+        </div>
+        <div class="hero-note">
+          <p>默认假设</p>
+          <ul>
+            <li>国内读博</li>
+            <li>需要中文核心 / C刊 + SSCI</li>
+            <li>SSCI 发表经验不足</li>
+            <li>希望降低“写死在一份格式上”的风险</li>
+          </ul>
+        </div>
+      </header>
+
+      <main class="workspace-grid">
+        <section class="panel form-panel">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Step 1</p>
+              <h2>作者与稿件画像</h2>
+            </div>
+            <div class="button-row">
+              <button id="load-demo" class="ghost-button" type="button">载入示例稿</button>
+              <button id="reset-form" class="ghost-button" type="button">清空</button>
+            </div>
+          </div>
+
+          <form id="tool-form">
+            <div class="form-block">
+              <h3>稿件工作区</h3>
+              <div class="field-grid two-up">
+                <label>
+                  <span>稿件名称</span>
+                  <input name="caseName" type="text" placeholder="例如：全球南方 AI 困境 v2" />
+                </label>
+                <label>
+                  <span>当前版本备注</span>
+                  <input name="caseNote" type="text" placeholder="例如：准备首投《外交评论》前版本" />
+                </label>
+              </div>
+              <p id="workspace-status" class="workspace-status">当前稿件尚未保存到稿件库。</p>
+            </div>
+
+            <div class="form-block">
+              <h3>作者画像</h3>
+              <div class="field-grid two-up">
+                <label>
+                  <span>当前阶段</span>
+                  <select name="stage">
+                    <option value="phd" selected>博士生</option>
+                    <option value="master">硕士生</option>
+                    <option value="young-faculty">青年教师</option>
+                  </select>
+                </label>
+                <label>
+                  <span>策略偏好</span>
+                  <select name="strategy">
+                    <option value="balanced" selected>平衡：首投现实、保留冲刺</option>
+                    <option value="practical">务实：优先毕业友好</option>
+                    <option value="reach">冲刺：愿意承受高门槛</option>
+                  </select>
+                </label>
+                <label>
+                  <span>中文核心发表经验</span>
+                  <select name="cnExperience">
+                    <option value="none" selected>没有</option>
+                    <option value="some">有 1 篇左右</option>
+                    <option value="strong">有多篇</option>
+                  </select>
+                </label>
+                <label>
+                  <span>SSCI 发表经验</span>
+                  <select name="ssciExperience">
+                    <option value="none" selected>没有</option>
+                    <option value="some">有投稿 / revise 经验</option>
+                    <option value="strong">有正式发表</option>
+                  </select>
+                </label>
+                <label>
+                  <span>是否方便与导师合作署名</span>
+                  <select name="advisorSupport">
+                    <option value="uncertain" selected>不确定</option>
+                    <option value="no">更倾向独作</option>
+                    <option value="yes">可以合作</option>
+                  </select>
+                </label>
+                <label>
+                  <span>基金 / 项目支撑</span>
+                  <select name="funding">
+                    <option value="none" selected>没有</option>
+                    <option value="some">有校级 / 一般项目</option>
+                    <option value="strong">有国家级 / 省部级项目</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-block">
+              <h3>稿件基础信息</h3>
+              <div class="field-grid two-up">
+                <label class="full-width">
+                  <span>题目</span>
+                  <input name="title" type="text" placeholder="例如：技术竞争如何重塑中美危机管控的制度空间？" />
+                </label>
+                <label class="full-width">
+                  <span>摘要 / 论文核心段落</span>
+                  <textarea name="abstract" rows="8" placeholder="粘贴摘要即可；若摘要尚未定稿，也可以粘贴导论前两段。工具会自动抓主题、篇幅、语言与模板化风险。"></textarea>
+                </label>
+                <label class="full-width">
+                  <span>关键词</span>
+                  <input name="keywords" type="text" placeholder="用逗号分隔，例如：中美关系, 人工智能治理, 危机管控, 国际秩序" />
+                </label>
+                <label>
+                  <span>稿件语言</span>
+                  <select name="language">
+                    <option value="zh" selected>中文稿</option>
+                    <option value="en">英文稿</option>
+                    <option value="bilingual">双语草稿 / 待转写</option>
+                  </select>
+                </label>
+                <label>
+                  <span>篇幅（中文填字数，英文填词数）</span>
+                  <input name="length" type="number" min="0" step="100" placeholder="例如：16000" />
+                </label>
+                <label>
+                  <span>文章主类型</span>
+                  <select name="articleType">
+                    <option value="theory" selected>理论 / 概念驱动</option>
+                    <option value="policy">政策分析 / 对策讨论</option>
+                    <option value="qualitative">案例研究 / 质性</option>
+                    <option value="quantitative">量化 / 数据分析</option>
+                    <option value="historical">历史 / 思想史 / 档案</option>
+                  </select>
+                </label>
+                <label>
+                  <span>区域重点</span>
+                  <select name="region">
+                    <option value="global" selected>全球 / 一般国际关系</option>
+                    <option value="china-us">中美关系</option>
+                    <option value="asia-pacific">亚太 / 印太</option>
+                    <option value="europe">欧洲</option>
+                    <option value="global-south">全球南方 / 发展中国家</option>
+                    <option value="middle-east">中东</option>
+                    <option value="other-region">其他区域</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-block">
+              <h3>主题与方法</h3>
+              <div class="field-grid">
+                <div>
+                  <span class="field-label">核心主题</span>
+                  <div id="theme-options" class="chip-grid"></div>
+                </div>
+                <div>
+                  <span class="field-label">方法 / 材料</span>
+                  <div id="method-options" class="chip-grid"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions stacked-actions">
+              <div class="button-row wrap-row">
+                <button id="analyze-button" class="primary-button" type="submit">生成推荐</button>
+                <button id="save-case" class="ghost-button" type="button">保存到稿件库</button>
+                <button id="save-snapshot" class="ghost-button" type="button">保存本轮判断</button>
+              </div>
+              <p class="helper-text">工具不会判断你的论文“值不值得发”，只判断与期刊风格、现实门槛和格式要求的匹配度。</p>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel results-panel">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Step 2</p>
+              <h2>推荐结果</h2>
+            </div>
+            <button id="copy-plan" class="ghost-button" type="button">复制本轮策略</button>
+          </div>
+
+          <div id="summary-cards" class="summary-grid"></div>
+
+          <section class="result-block">
+            <div class="block-head">
+              <h3>稿件库</h3>
+              <p>保存不同论文版本，便于反复比较不同投递路线。</p>
+            </div>
+            <div id="case-library" class="utility-list empty-state">还没有保存任何稿件。</div>
+          </section>
+
+          <section class="result-block">
+            <div class="block-head">
+              <h3>投稿记录</h3>
+              <p>保存某次分析结论，方便回头比较“这篇之前准备投哪本”。</p>
+            </div>
+            <div id="snapshot-library" class="utility-list empty-state">还没有保存任何投稿判断。</div>
+          </section>
+
+          <section class="result-block">
+            <div class="block-head">
+              <h3>自动识别到的画像</h3>
+              <p>工具会把你手动选择的标签与摘要自动识别结果合并。</p>
+            </div>
+            <div id="detected-signals" class="signal-grid"></div>
+          </section>
+
+          <section class="result-block">
+            <div class="block-head">
+              <h3>本轮决策建议</h3>
+              <p>给出中文首投、SSCI 首投、冲刺项和需要先补的短板。</p>
+            </div>
+            <div id="decision-memo" class="memo-card empty-state">
+              录入稿件后，这里会生成一段可复制的投稿策略摘要。
+            </div>
+          </section>
+
+          <section class="result-block">
+            <div class="block-head">
+              <h3>中文核心 / C刊</h3>
+              <p>按现实匹配度排序，兼顾题材贴合与博士生投稿可行性。</p>
+            </div>
+            <div id="cn-results" class="journal-list empty-state">等待分析。</div>
+          </section>
+
+          <section class="result-block">
+            <div class="block-head">
+              <h3>SSCI / 英文刊</h3>
+              <p>优先保留更现实的英文投稿路线，同时标注冲刺刊。</p>
+            </div>
+            <div id="ssci-results" class="journal-list empty-state">等待分析。</div>
+          </section>
+        </section>
+      </main>
+
+      <footer class="footer-note panel">
+        <p>
+          数据说明：当前版本使用公开期刊说明页和社区经验做种子数据，适合个人决策，不等于官方录用规则。正式投稿前仍需逐本核对最新投稿须知。
+        </p>
+      </footer>
+    </div>
+
+    <script src="journals.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
